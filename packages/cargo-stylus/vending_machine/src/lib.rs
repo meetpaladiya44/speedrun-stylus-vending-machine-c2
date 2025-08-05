@@ -16,6 +16,7 @@ use alloy_primitives::{Address, Uint};
 use stylus_sdk::alloy_primitives::U256;
 use stylus_sdk::prelude::*;
 use stylus_sdk::{block, console};
+use stylus_cache_sdk::{is_contract_cacheable};
 
 // Define persistent storage using the Solidity ABI.
 // `VendingMachine` will be the entrypoint for the contract.
@@ -69,5 +70,10 @@ impl VendingMachine {
     pub fn get_cupcake_balance_for(&self, user_address: Address) -> Uint<256, 4> {
         // Return the user's cupcake balance from storage.
         return self.cupcake_balances.get(user_address);
+    }
+
+    
+    pub fn is_cacheable(&self) -> bool {
+        is_contract_cacheable()
     }
 }
